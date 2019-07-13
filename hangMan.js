@@ -12,6 +12,14 @@ let hangMan = {
     lives: 6,
     remainingLtr: '',
     boardPlaceHolder: '',
+    letterHistory: [],
+    graphics: [
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],  
+    ],
 };
 
 function greeting (answer) {
@@ -31,9 +39,11 @@ function startGame() {
     hangMan.letterBoard = word.split('');
     hangMan.remainingLtr = word.split('');
     hangMan.boardPlaceHolder = word.split('');
+
     let counter = hangMan.letterBoard.length;
     hangMan.lives = counter;
     makeBoard(counter);
+
     displayBoard();
 }
 // Only used once to make board
@@ -50,20 +60,24 @@ function displayBoard () {
 }
 
 function updateGame (letter) {
-    if (hangMan.word[0].includes(letter)) {
+    if (hangMan.remainingLtr.includes(letter)) {
         let index = hangMan.boardPlaceHolder.indexOf(letter);
+        let remainingLtrIndex = hangMan.remainingLtr.indexOf(letter);
+
+        hangMan.letterHistory.push(letter);
         hangMan.boardPlaceHolder[index] = ".";
         hangMan.board[index] = letter;
-        let remainingLtrIndex = hangMan.remainingLtr.indexOf(letter);
         hangMan.remainingLtr.splice(remainingLtrIndex, 1);
 
         // console.log(hangMan.word)
         // console.log(hangMan.wordString)
         // console.log(hangMan.board)
         // console.log(hangMan.letterBoard)
-        // console.log(hangMan.remainingLtr)
+        // console.log(hangMan.remainingLtr);
+        console.log(hangMan.letterHistory);
     } else {
         hangMan.lives--;
+        console.log(hangMan.letterHistory);
     }
 }
 // Main function that loops the game
@@ -71,11 +85,12 @@ function askAgain() {
     rl.on('line', letter => {
         updateGame(letter);
         console.log("Lives Remaining: ", hangMan.lives);
+
         if (hangMan.lives < 1) {
             console.log("You lose your body but, I guess you can keep your soul.")
             rl.close();
         } else if (hangMan.remainingLtr.length === 0) {
-            console.log("Congratulations! It's your lucky day!")
+            console.log(`Congratulations! You guessed the word "${hangMan.word}" correct!`)
             rl.close();
         }
 
