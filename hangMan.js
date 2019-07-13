@@ -5,7 +5,7 @@ let rl = readline.createInterface({
 });
 
 let hangMan = {
-    word: ['money'],
+    word: ['hello'],
     wordString: 'hello',
     letterBoard: '',
     board: [],
@@ -60,20 +60,19 @@ function displayBoard () {
 }
 
 function updateGame (letter) {
-    if (hangMan.remainingLtr.includes(letter)) {
-        let index = hangMan.boardPlaceHolder.indexOf(letter);
-        let remainingLtrIndex = hangMan.remainingLtr.indexOf(letter);
-
-        hangMan.letterHistory.push(letter);
-        hangMan.boardPlaceHolder[index] = ".";
-        hangMan.board[index] = letter;
-        hangMan.remainingLtr.splice(remainingLtrIndex, 1);
-
-        // console.log(hangMan.word)
-        // console.log(hangMan.wordString)
-        // console.log(hangMan.board)
-        // console.log(hangMan.letterBoard)
-        // console.log(hangMan.remainingLtr);
+    if (hangMan.letterHistory.includes(letter)) { // Does nothing if used ltr has been repeated
+        console.log("You've already used that letter, choose another one: ");
+    } else if (hangMan.remainingLtr.includes(letter)) { // Runs only if the correct letter has been chosen
+        // If correct letter, game needs to loop for all occurances of the current letter
+        while (hangMan.remainingLtr.includes(letter)) {
+            let index = hangMan.boardPlaceHolder.indexOf(letter); // Static index of the word replacing first Index with "."
+            let remainingLtrIndex = hangMan.remainingLtr.indexOf(letter); // Dynamic index of letters remaining, needed for repeated letters
+        
+            hangMan.letterHistory.push(letter); 
+            hangMan.boardPlaceHolder[index] = "."; // Updates placeholder array, used for n > 1 of a letter
+            hangMan.board[index] = letter;
+            hangMan.remainingLtr.splice(remainingLtrIndex, 1); // 
+        }
         console.log(hangMan.letterHistory);
     } else {
         hangMan.lives--;
