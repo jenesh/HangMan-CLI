@@ -3,7 +3,7 @@ let rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-
+// Hangman object that holds dynamic data (based on choice of word) for current game
 let hangMan = {
     word: ['hello'],
     wordString: 'hello',
@@ -21,7 +21,7 @@ let hangMan = {
         [" ", " ", " ", " ", " "],  
     ],
 };
-
+// Simple greeting that ask if the user is ready but will start the game no matter the answer
 function greeting (answer) {
     answer.toLowerCase();
     if (answer === "yes") {
@@ -32,7 +32,7 @@ function greeting (answer) {
         console.log("Guards! Bring him up on stage!")
     }
 }
-
+// Starts the game and makes the board by choosing word then ltr: board, bank, boardPlaceHolder
 function startGame() {
     // wordGenerator();
     let word = hangMan.word[0];
@@ -46,7 +46,7 @@ function startGame() {
 
     displayBoard();
 }
-// Only used once to make board
+// Only used once to make board dynamically by pushing "_" to an array depending on the length of the word
 function makeBoard (length) {
     let i = 0;
     while(length > i) {
@@ -58,7 +58,7 @@ function makeBoard (length) {
 function displayBoard () {
     console.log(hangMan.board.join(' '));
 }
-
+// Main function that updates the game and is run on every 'line'/return command until win/lose condition has been met
 function updateGame (letter) {
     if (hangMan.letterHistory.includes(letter)) { // Does nothing if used ltr has been repeated
         console.log("You've already used that letter, choose another one: ");
@@ -79,7 +79,7 @@ function updateGame (letter) {
         console.log(hangMan.letterHistory);
     }
 }
-// Main function that loops the game
+// Main Readline function that updatesGame() and keeps asking for input until win/lose condition has been met
 function askAgain() {
     rl.on('line', letter => {
         updateGame(letter);
