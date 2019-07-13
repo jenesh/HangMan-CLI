@@ -5,10 +5,13 @@ let rl = readline.createInterface({
 });
 
 let hangMan = {
-    word: ['hello'],
+    word: ['money'],
+    wordString: 'hello',
     letterBoard: '',
     board: [],
-    lives: 0,
+    lives: 6,
+    remainingLtr: '',
+    boardPlaceHolder: '',
 };
 
 function greeting (answer) {
@@ -26,6 +29,8 @@ function startGame() {
     // wordGenerator();
     let word = hangMan.word[0];
     hangMan.letterBoard = word.split('');
+    hangMan.remainingLtr = word.split('');
+    hangMan.boardPlaceHolder = word.split('');
     let counter = hangMan.letterBoard.length;
     hangMan.lives = counter;
     makeBoard(counter);
@@ -45,20 +50,36 @@ function displayBoard () {
 }
 
 function updateGame (letter) {
+    if (hangMan.word[0].includes(letter)) {
+        let index = hangMan.boardPlaceHolder.indexOf(letter);
+        hangMan.boardPlaceHolder[index] = ".";
+        hangMan.board[index] = letter;
+        let remainingLtrIndex = hangMan.remainingLtr.indexOf(letter);
+        hangMan.remainingLtr.splice(remainingLtrIndex, 1);
 
+        // console.log(hangMan.word)
+        // console.log(hangMan.wordString)
+        // console.log(hangMan.board)
+        // console.log(hangMan.letterBoard)
+        // console.log(hangMan.remainingLtr)
+    } else {
+        hangMan.lives--;
+    }
 }
 // Main function that loops the game
 function askAgain() {
     rl.on('line', letter => {
-        if (hangMan.lives === 0) {
+        updateGame(letter);
+        console.log("Lives Remaining: ", hangMan.lives);
+        if (hangMan.lives < 1) {
             console.log("You lose your body but, I guess you can keep your soul.")
-            rlclose();
-        } else if (hangMan.board.length === 0) {
+            rl.close();
+        } else if (hangMan.remainingLtr.length === 0) {
             console.log("Congratulations! It's your lucky day!")
-        } else {
-            updateGame(letter);
-            askAgain();
+            rl.close();
         }
+
+        displayBoard();
     });
 }
 

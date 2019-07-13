@@ -28,5 +28,12 @@ function makeBoard (length) {
     }
     console.log(hangMan.board.join(' '));
 }
+
+// console.log(hangMan.word[0].includes("a"))
 // startGame()
 // makeBoard(5)
+function updateGame (letter) {
+    if (hangMan.word[0].includes(letter)) {
+        hangMan.word.indexOf(letter);
+    }
+}
