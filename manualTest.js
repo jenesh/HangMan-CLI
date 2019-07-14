@@ -1,3 +1,5 @@
+let colors = require('colors');
+
 let hangMan = {
     word: ['hello'],
     letterBoard: '',
@@ -70,3 +72,31 @@ arr[4][0] = "_"
 arr[4][4] = "_"
 
 arr.forEach( row => console.log(row.join("")))
+
+// console.log('\x1b[33m%s\x1b[0m: ', "Hell");
+// console.log("\x1b[5m", "Hello");
+// console.log("\x1b[7m", "Hello ");
+
+let colorMe = ["Game Over" , "Son"]
+// colorMe.forEach( (a) => console.log("\x1b[7m", a + " "))
+
+let gameOver = [
+    [" ", "-", " ", " ", " "],
+    ["|", " ", "|", " ", " "],
+    ["|", "_", "_", " ", " "],
+    ["|", " ", '|', " ", " "],
+    ["\\", "_", "/", " ", " "],  
+];
+
+gameOver.forEach( row => console.log(row.join("")));
+// console.log(" GAME OVER ".bgRed)
+// console.log(" START ".bgGreen)
+
+let printMe = [
+    " ... ", 
+    " /  \\",
+    "|  __",
+    " \\ _ /", 
+]
+
+printMe.forEach( a => console.log(a));
