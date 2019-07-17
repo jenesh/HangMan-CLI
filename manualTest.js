@@ -39,7 +39,6 @@ function updateGame (letter) {
         hangMan.word.indexOf(letter);
     }
 }
-
 let arr = [
     [" ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " "],
@@ -47,6 +46,7 @@ let arr = [
     [" ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " "],  
 ];
+
 arr[0][2] = "O"
 
 arr[1][2] = "|"
@@ -71,7 +71,41 @@ arr[4][3] = "/"
 arr[4][0] = "_"
 arr[4][4] = "_"
 
-arr.forEach( row => console.log(row.join("")))
+let pushArr = [
+    [" ", " ", "O", " ", " "],
+    ["_", "/", "X", "\\", "_"],
+    [" ", " ", "X", " ", " "],
+    [" ", "/", " ", "\\", " "],
+    ["_", "\\", " ", "/", "_"],
+    ["-", "-", "-", "-", "-"],
+]
+
+let newArr = [
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],  
+];
+console.log(pushArr[0])
+newArr[0] = pushArr[0];
+newArr[0] = pushArr[0];
+
+let i = 1;
+if (i === 0) {
+    newArr[i] = pushArr[0];
+} else if (i === 1) {
+    newArr[i] = pushArr[1];
+} else if (i === 2) {
+    newArr[i] = pushArr[2];
+} else if (i === 3) {
+    newArr[i] = pushArr[3];
+} else if (i === 4) {
+    newArr[i] = pushArr[4];
+}
+newArr.forEach( row => console.log(row.join("")));
+
+// arr.forEach( row => console.log(row.join("")))
 
 // console.log('\x1b[33m%s\x1b[0m: ', "Hell");
 // console.log("\x1b[5m", "Hello");
@@ -88,7 +122,7 @@ let gameOver = [
     ["\\", "_", "/", " ", " "],  
 ];
 
-gameOver.forEach( row => console.log(row.join("")));
+// gameOver.forEach( row => console.log(row.join("")));
 // console.log(" GAME OVER ".bgRed)
 // console.log(" START ".bgGreen)
 
@@ -99,4 +133,4 @@ let printMe = [
     " \\ _ /", 
 ]
 
-printMe.forEach( a => console.log(a));
+// printMe.forEach( a => console.log(a)); 

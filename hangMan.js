@@ -13,12 +13,20 @@ let hangMan = {
     remainingLtr: '',
     boardPlaceHolder: '',
     letterHistory: [],
-    graphics: [
+    graphic: [
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " "],  
+    ],
+    graphicUpdate: [
+        [" ", " ", "O", " ", " "],
+        ["_", "/", "|", "\\", "_"],
+        [" ", " ", "|", " ", " "],
+        [" ", "/", " ", "\\", " "],
+        ["_", "\\", " ", "/", "_"],
+        ["-", "-", "-", "-", "-"],
     ],
 };
 // Simple greeting that ask if the user is ready but will start the game no matter the answer
