@@ -1,3 +1,4 @@
+let colors = require('colors');
 const readline = require("readline");
 let rl = readline.createInterface({
     input: process.stdin,
@@ -14,26 +15,42 @@ let hangMan = {
     boardPlaceHolder: '',
     letterHistory: [],
     graphic: [
-        [" ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " "],  
+        [" ", "_", "_", " ", " ", " "],
+        ["|", " ", " ", "|", " ", " "],
+        ["|", " ", " ", " ", " ", " "],
+        ["|", " ", " ", " ", " ", " "],
+        ["|", " ", " ", " ", " ", " "],
+        ["|", " ", " ", " ", " ", " "],
+        ["|", " ", " ", " ", " ", " "],
+        ["|", "_", "_", "_", "_", "_"],
+
     ],
+    // graphicUpdate: [
+    //     [" ", "_", "_", " ", " ", " "],  
+    //     ["|", " ", "||", " ", " "],  
+    //     ["|", " ", "💀", " ", " "],
+    //     ["|", "_", "/", "|", "\\", "_"],
+    //     ["|", " ", " ", "|", " ", " "],
+    //     ["|", " ", "/", " ", "\\", " "],
+    //     ["|", "_", "\\", " ", "/", "_"],
+    //     ["|", "_", "_", "_", "_", "_"],
+    // ],
     graphicUpdate: [
-        [" ", " ", "O", " ", " "],
-        ["_", "/", "|", "\\", "_"],
-        [" ", " ", "|", " ", " "],
-        [" ", "/", " ", "\\", " "],
-        ["_", "\\", " ", "/", "_"],
-        ["-", "-", "-", "-", "-"],
+        [" ", "_", "_", " ", " ", " "],  
+        ["|", " ", " ", "|", " ", " "],  
+        ["|", " ", " ", "O", " ", " "],
+        ["|", "_", "/", "|", "\\", "_"],
+        ["|", " ", " ", "|", " ", " "],
+        ["|", " ", "/", " ", "\\", " "],
+        ["|", "_", "\\", " ", "/", "_"],
+        ["|", "_", "_", "_", "_", "_"],
     ],
 };
 // Simple greeting that ask if the user is ready but will start the game no matter the answer
 function greeting (answer) {
     answer.toLowerCase();
     if (answer === "yes") {
-        console.log("Let's go!");
+        console.log("Let's go!".green.bold);
     } else if (answer === "no") {
         console.log("Well you're already on the death row...I mean winner row.");
     } else {
@@ -64,9 +81,24 @@ function makeBoard (length) {
 }
 // Used to display after every input
 function displayBoard () {
+    hangMan.graphic.forEach(col => console.log(col.join('')));
     console.log(hangMan.board.join(' '));
 }
 // Main function that updates the game and is run on every 'line'/return command until win/lose condition has been met
+function bodyPartUpdate() {
+    let i = 6 - hangMan.lives;
+    if (i === 6) {
+        hangMan.graphic[i] = hangMan.graphicUpdate[i];
+        hangMan.graphic[1][2] = "⛓";
+        hangMan.graphic[2][2] = "💀";
+        hangMan.graphic[2][3] = "";
+
+    } else {
+        hangMan.graphic[i] = hangMan.graphicUpdate[i];
+    }
+    i++;
+}
+// Updates the body part display
 function updateGame (letter) {
     if (hangMan.letterHistory.includes(letter)) { // Does nothing if used ltr has been repeated
         console.log("You've already used that letter, choose another one: ");
@@ -84,6 +116,7 @@ function updateGame (letter) {
         console.log(hangMan.letterHistory);
     } else {
         hangMan.lives--;
+        bodyPartUpdate();
         console.log(hangMan.letterHistory);
     }
 }
@@ -91,13 +124,14 @@ function updateGame (letter) {
 function askAgain() {
     rl.on('line', letter => {
         updateGame(letter);
-        console.log("Lives Remaining: ", hangMan.lives);
+        console.log("Lives Remaining: ".inverse.bold, hangMan.lives);
 
         if (hangMan.lives < 1) {
-            console.log("You lose your body but, I guess you can keep your soul.")
+            
+            console.log("You lose your body but, I guess you can keep your soul. 😂".bold.red)
             rl.close();
         } else if (hangMan.remainingLtr.length === 0) {
-            console.log(`Congratulations! You guessed the word "${hangMan.word}" correct!`)
+            console.log(`Congratulations! You guessed the word "${hangMan.word}" correct!`.bold.green)
             rl.close();
         }
 
