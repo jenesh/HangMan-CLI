@@ -7,7 +7,7 @@ let rl = readline.createInterface({
 // Hangman object that holds dynamic data (based on choice of word) for current game
 let hangMan = {
     word: ['hello'],
-    wordString: 'hello',
+    wordString: 'hello'.green,
     letterBoard: '',
     board: [],
     lives: 6,
@@ -89,9 +89,10 @@ function bodyPartUpdate() {
     let i = 6 - hangMan.lives;
     if (i === 6) {
         hangMan.graphic[i] = hangMan.graphicUpdate[i];
-        hangMan.graphic[1][2] = "⛓";
-        hangMan.graphic[2][2] = "💀";
-        hangMan.graphic[2][3] = "";
+        // hangMan.graphic[1][2] = "⛓";
+        // hangMan.graphic[2][2] = "💀";
+        hangMan.graphic[2][3] = "O".red;
+        // hangMan.graphic[2][3] = "";
 
     } else {
         hangMan.graphic[i] = hangMan.graphicUpdate[i];
@@ -110,7 +111,7 @@ function updateGame (letter) {
         
             hangMan.letterHistory.push(letter); 
             hangMan.boardPlaceHolder[index] = "."; // Updates placeholder array, used for n > 1 of a letter
-            hangMan.board[index] = letter;
+            hangMan.board[index] = letter.green;
             hangMan.remainingLtr.splice(remainingLtrIndex, 1); // 
         }
         console.log(hangMan.letterHistory);
@@ -124,7 +125,8 @@ function updateGame (letter) {
 function askAgain() {
     rl.on('line', letter => {
         updateGame(letter);
-        console.log("Lives Remaining: ".inverse.bold, hangMan.lives);
+        let lives = hangMan.lives.toString();
+        console.log("Lives Remaining:".inverse.bold, " ".red.inverse + lives.red.inverse.bold + " ".red.inverse.bold);
 
         if (hangMan.lives < 1) {
             
