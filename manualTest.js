@@ -1,14 +1,14 @@
 let colors = require('colors');
 let figlet = require('figlet');
 
-figlet('Hello World!!', function(err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(data)
-});
+// figlet('Hello World!!', function(err, data) {
+//     if (err) {
+//         console.log('Something went wrong...');
+//         console.dir(err);
+//         return;
+//     }
+//     console.log(data)
+// });
 
 let hangMan = {
     word: ['hello'],
@@ -97,7 +97,7 @@ let newArr = [
     [" ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " "],  
 ];
-console.log(pushArr[0])
+// console.log(pushArr[0])
 newArr[0] = pushArr[0];
 newArr[0] = pushArr[0];
 
@@ -113,7 +113,7 @@ if (i === 0) {
 } else if (i === 4) {
     newArr[i] = pushArr[4];
 }
-newArr.forEach( row => console.log(row.join("")));
+// newArr.forEach( row => console.log(row.join("")));
 
 // arr.forEach( row => console.log(row.join("")))
 
@@ -141,6 +141,9 @@ let printMe = [
     " /  \\",
     "|  __",
     " \\ _ /", 
-]
+];
 
 // printMe.forEach( a => console.log(a)); 
+
+let randomWords = require('random-words');
+console.log(randomWords());
