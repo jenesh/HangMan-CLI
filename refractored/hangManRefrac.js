@@ -68,7 +68,7 @@ const startGame = () => {
     makeBoard(boardLength);
 
     displayBoard();
-    console.log(word)
+    // console.log(word)
 }
 
 const makeBoard = (length) => {
