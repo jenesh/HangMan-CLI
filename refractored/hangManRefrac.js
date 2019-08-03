@@ -1,6 +1,6 @@
-let colors = require('colors');
-let figlet = require('figlet');
-let randomWords = require('random-words');
+const colors = require('colors');
+const figlet = require('figlet');
+const randomWords = require('random-words');
 
 const readline = require("readline");
 let rl = readline.createInterface({
@@ -38,7 +38,7 @@ let hangMan = {
         ["|", " ", "/", " ", "\\", " "],
         ["|", "_", "\\", " ", "/", "_"],
         ["|", "_", "_", "_", "_", "_"],
-    ],
+    ],  
 }
 
 const greeting = (answer) => {
@@ -54,7 +54,7 @@ const greeting = (answer) => {
 };
 
 const startGame = () => {
-    let word = randomWords();
+    let word = randomWords({exactly: 1, min: 5, max: 8}).toString();
     word = word.toUpperCase();
     hangMan.word = word;
     hangMan.wordString = word;
@@ -154,8 +154,16 @@ const askAgain = () => {
             });
             rl.close();
         } else if (hangMan.remainingLtr.length === 0) {
-            let congrats = 'Congratulations! You guessed the word'.rainbow + '" '.white + hangMan.word.green.inverse.bold + ' "'.white + "correct!".rainbow;
+            let congrats = 'Congratulations! You guessed the word '.rainbow + '" '.white + hangMan.word.green.inverse.bold + ' "'.white + " correct!".rainbow;
             console.log(congrats.bold)
+            figlet('Winner!!!', function (err, data) {
+                if (err) {
+                    console.log('Something went wrong...');
+                    console.dir(err);
+                    return;
+                }
+                console.log(data)
+            });
             rl.close();
         }
     });
