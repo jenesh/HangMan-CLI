@@ -1,0 +1,1 @@
+{"word":"hello","lives":6,"wordArr":["h","e",null,null,"o"],"boardArr":["h","e","l","l","o"]}
