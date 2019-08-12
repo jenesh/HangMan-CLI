@@ -2,6 +2,7 @@ console.clear();
 const readlineSync = require('readline-sync');
 const randomWords = require('random-words');
 const colors = require('colors');
+const fs = require('fs');
 
 const playerOneName = readlineSync.question('So what is your name?\n');
 console.log('That\'s a decent name, ' + playerOneName + ".");
@@ -12,7 +13,7 @@ console.log('Let\'s start!');
 
 let emptyBoard = [
     [" ", "_", "_", " ", " ", " "],
-    ["|", " ", " ", "|", " ", " "],
+    ["|", " ", " ", " ", " ", " "],
     ["|", " ", " ", " ", " ", " "],
     ["|", " ", " ", " ", " ", " "],
     ["|", " ", " ", " ", " ", " "],
