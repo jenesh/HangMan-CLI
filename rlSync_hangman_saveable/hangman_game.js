@@ -12,12 +12,9 @@ const fs = require("fs");
 // }
 // Checks if there is a saved file
 
-let hangManObj = {
-  word: "hello",
-  lives: 6
-};
+let hangManObj = {};
 
-const name = rls.question("Hi, there what is your name?"); // Name used to save file: name.txt
+const name = rls.question("Hi, there what is your name?\n"); // Name used to save file: name.txt
 
 let isSaved = false; // Initilizes as false
 
@@ -40,30 +37,48 @@ if (isSaved) {
   }
 } else {
   console.log(`Lets start a new game ${name}!`);
+  // Initilizes the Hangman Object
+  hangManObj.word = randomWords({
+    exactly: 1,
+    min: 5,
+    max: 8
+  }).toString();
+  hangManObj.wordArr = game.splitWordToArr(hangManObj.word);
+  hangManObj.boardArr = game.makeBoardArr(hangManObj.wordArr);
+  hangManObj.lives = 6;
+
 }
 
-let pressed = rls.question(`Let's try a letter ${name}:`);
+console.log(hangManObj);
 
-while (pressed.match(/[a-Z]/i)) {
-  pressed = rls.question(`Let's try a LETTER this time ${name}:`);
+let userInput = rls.question(`Let's choose your first letter ${name}:\n`);
+
+// Game keeps running and asking while conditions are true
+while (hangManObj.lives || !game.isSolved(hangManObj.wordArr)) {
+  // Makes sure userInput is only a letter
+  let repeatQuestion = `Sorry ${name}, there are no ${userInput.toUpperCase()}'s`;
+  while (!game.letterCheck(userInput)) {
+    userInput = rls.question(`Let's try a LETTER this time ${name}:\n`);
+  }
+
+  if (hangManObj.wordArr.includes(userInput)) {
+    // Updates both arrays if input matches a letter
+    hangManObj.boardArr = game.updateDynamicArr(hangManObj.boardArr, userInput);
+    hangManObj.wordArr = game.updateStaticArr(hangManObj.wordArr, userInput);
+    repeatQuestion = `Great guess ${name}! `;
+  } else {
+    hangManObj.lives--;
+  }
+  // console.log(hangManObj);
+  console.log(game.displayBoardArr(hangManObj.boardArr));
+  console.log(`You have ${hangManObj.lives} lives remaining.`);
+  console.log(hangManObj)
+  userInput = rls.question(`${repeatQuestion}\n`);
+  // let hangManObj.wordArr.every(ele => ele === '$'))
 }
 
-//
-// // Creates an array of the current chosen word
-// hangManObj.wordArr = game.splitWordToArr(hangManObj.word);
-//
-// // Using wordArr creates an array with '_' of same length for the board
-// hangManObj.boardArr = hangManObj.wordArr.map(ele => "_");
-//
-// // Updates both arrays if input matches a letter
-// hangManObj.boardArr = hangManObj.wordArr.map(ele =>
-//   ele === givenLtr ? givenLtr : ele
-// );
-//
-// hangManObj.wordArr = hangManObj.boardArr.map(ele =>
-//   ele === givenLtr ? null : ele
-// );
-//
+
+
 // console.log(hangManObj);
 // // Creates a file & Saves the hangManObj with the given name
 // // fs.writeFileSync(`${name}.txt`, JSON.stringify(hangManObj), err => {

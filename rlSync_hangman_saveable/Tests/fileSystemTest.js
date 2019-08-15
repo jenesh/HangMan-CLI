@@ -56,8 +56,8 @@ hangManObj.wordArr = hangManObj.boardArr.map(ele =>
   ele === givenLtr ? null : ele
 );
 
-console.log(hangManObj.wordArr);
-console.log(hangManObj.boardArr);
+// console.log(hangManObj.wordArr);
+// console.log(hangManObj.boardArr);
 
 // let nullArr = [null, null, null];
 // console.log(nullArr.every(ele => ele === null));
@@ -76,8 +76,8 @@ fs.writeFileSync("obj.txt", JSON.stringify(hangManObj), err => {
 const isSaved = fs.openSync("obj.txt");
 const loadSavedObject = JSON.parse(fs.readFileSync("obj.txt", "utf8"));
 
-console.log(isSaved);
-console.log(loadSavedObject);
+// console.log(isSaved);
+// console.log(loadSavedObject);
 // fs.open("obj.txt", "r", (err, fd) => {
 //   if (err) {
 //     if (err.code === "ENOENT") {
@@ -133,4 +133,11 @@ console.log(loadSavedObject);
 //     if (err) throw err;
 // })
 
-console.log();
+// let arrr = ['a','A','b', 'B', 'C'];
+// console.log(arrr.map(ele => ele === ele.toLowerCase() ? '_' : ele));
+// console.log(arrr[1].match(/[a-z]/))
+
+let arr1 = ['$', '$', '$'];
+// console.log(!!arr1.every(ele => ele !== '$'));
+
+console.log(arr1.every(ele => ele == '$'));
